@@ -97,6 +97,7 @@
 </head>
 <body>
   <div id="viewer"></div>
+
   <header>
     <div class="logo">Fabio Baguhl</div>
     <nav>
@@ -104,9 +105,31 @@
       <a href="contact.html">Contact</a>
     </nav>
   </header>
+
   <main>
-    <!-- Projektbilder (unverändert) -->
+    <div class="project" style="top: 15%; left: 15%;" draggable="true">
+      <img src="img/istanbul.jpg" alt="Istanbul" onclick="location.href='istanbul.html';" />
+    </div>
+    <div class="project" style="top: 45%; left: 60%;" draggable="true">
+      <img src="img/changing-church.jpg" alt="Changing Church" onclick="location.href='changing-church.html';" />
+    </div>
+    <div class="project" style="top: 75%; left: 25%;" draggable="true">
+      <img src="img/montserrat.jpg" alt="Montserrat" onclick="location.href='montserrat.html';" />
+    </div>
+    <div class="project" style="top: 25%; left: 70%;" draggable="true">
+      <img src="img/wien.jpg" alt="Wiener Ringstraße" onclick="location.href='wiener-ringstrasse.html';" />
+    </div>
+    <div class="project" style="top: 60%; left: 10%;" draggable="true">
+      <img src="img/wien-gruen.jpg" alt="Wien" onclick="location.href='wien-gruen.html';" />
+    </div>
+    <div class="project" style="top: 90%; left: 60%;" draggable="true">
+      <img src="img/madrid.jpg" alt="Madrid" onclick="location.href='madrid.html';" />
+    </div>
+    <div class="project" style="top: 40%; left: 40%;" draggable="true">
+      <img src="img/akw.jpg" alt="AKW" onclick="location.href='akw.html';" />
+    </div>
   </main>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/js/loaders/GLTFLoader.js"></script>
   <script>
@@ -144,6 +167,23 @@
       if (model) {
         model.rotation.y += delta * 0.01;
       }
+    });
+
+    const projects = document.querySelectorAll('.project');
+    projects.forEach(project => {
+      project.addEventListener('dragstart', (e) => {
+        const rect = project.getBoundingClientRect();
+        project.dataset.offsetX = e.clientX - rect.left;
+        project.dataset.offsetY = e.clientY - rect.top;
+      });
+      project.addEventListener('dragend', (e) => {
+        const offsetX = project.dataset.offsetX;
+        const offsetY = project.dataset.offsetY;
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        project.style.left = x + 'px';
+        project.style.top = y + 'px';
+      });
     });
   </script>
 </body>
